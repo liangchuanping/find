@@ -3,8 +3,12 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:task="http://www.springframework.org/schema/task"
-       xmlns:mybatis="http://mybatis.org/schema/mybatis-spring" xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+        xmlns:p = "http://www.springframework.org/schema/p"
+       xmlns:mybatis="http://mybatis.org/schema/mybatis-spring" 
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/task 
+       http://www.springframework.org/schema/task/spring-task-4.0.xsd 
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <!--自动扫描bean-->
     <context:component-scan base-package="com.ecust.find">
@@ -31,7 +35,7 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
         <property name="dataSource" ref="dataSource"/>
-        <property name="typeAliasesPackage" value="com.ecust.find.loser.dao"/>
+        <property name="typeAliasesPackage" value="com.ecust.find.loser.model"/>
     </bean>
 
     <!--扫描mapper-->
@@ -48,7 +52,23 @@
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
-
-
+    
+    <!--异步-->
+     <bean id = "concurrentTaskScheduler" class = "org.springframework.scheduling.concurrent.ConcurrentTaskScheduler">
+         <constructor-arg>
+             <bean class = "java.util.concurrent.Executors"  factory-method = "newScheduledThreadPool" >
+                 <constructor-arg  value = "5" />
+             </bean>
+         </constructor-arg>
+     </bean>
+     
+     <bean id = "taskExecutorAdapter" class = "org.springframework.core.task.support.TaskExecutorAdapter">
+       <constructor-arg>
+       <bean class = "java.util.concurrent.Executors"  factory-method = "newCachedThreadPool"/>
+       </constructor-arg>
+     </bean>
+     
+     <bean id = "simpleAsyncTaskExecutor" class ="org.springframework.core.task.SimpleAsyncTaskExecutor"
+     p:daemon = "false" /> 
     
 </beans>
