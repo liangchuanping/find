@@ -47,7 +47,7 @@
                 <div class="panel-body" >
                   <ul class="nav" style = "background-color:#337ab7 " >
                     <li>
-                        <a href="${pageContext.request.contextPath}//admin" style = "text-align:center ;color:#B3B3B3">Finder</a>
+                        <a href="${pageContext.request.contextPath}/admin" style = "text-align:center ;color:#B3B3B3">Finder</a>
                     </li>
                     <li>
                         <a href="${pageContext.request.contextPath}/loser/loser_pre" style = "text-align:center; color :#B3B3B3; font-weight:bold" >
