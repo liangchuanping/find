@@ -35,12 +35,13 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
         <property name="dataSource" ref="dataSource"/>
-        <property name="typeAliasesPackage" value="com.ecust.find.loser.model"/>
+        <property name="typeAliasesPackage" value="com.ecust.find.loser.model, com.ecust.find.publisher.model"/>
     </bean>
 
     <!--扫描mapper-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.ecust.find.account.dao, com.ecust.find.loser.dao"/>
+        <property name="basePackage" value="com.ecust.find.account.dao, com.ecust.find.loser.dao, 
+          com.ecust.find.publisher.dao"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
     

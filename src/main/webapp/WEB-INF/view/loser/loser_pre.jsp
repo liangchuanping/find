@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<jsp:include page="/WEB-INF/view/loser/nav.jsp"></jsp:include>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -74,14 +76,11 @@ var studentId = loseRecord.studentId;
   </div>
 </div>
     
-<jsp:include page="/WEB-INF/view/loser/nav.jsp"></jsp:include>
 
 <div id="page-wrapper">
     <div class="container-fluid">
         <div>
             <h1 class="page-header">Found Info List <a style = "color:bule" >(${studentId})</a></h1>
-        </div>
-        <div class="panel-heading">
         </div>
         <div class="row">
             <div class="col-lg-12">
@@ -92,11 +91,11 @@ var studentId = loseRecord.studentId;
                                 <thead>
                                 <tr>
                                     <th style="display:none">loseId</th>
-                                    <th>Card Number</th>
-                                    <th>Info Time</th>
-                                    <th>Status</th>
-                                    <th>Name</th>
-                                    <th>Check</th>
+                                    <th class = "col-sm-2">Card Number</th>
+                                    <th class = "col-sm-2">Info Time</th>
+                                    <th class = "col-sm-2">Status</th>
+                                    <th class = "col-sm-3">Name</th>
+                                    <th class = "col-sm-1">Check</th>
                                 </tr>
                                 </thead>
                                 <tbody id = "tbody">
@@ -112,7 +111,7 @@ var studentId = loseRecord.studentId;
                                             </div>                          
                                         </td>
                                         <td>                                           
-                                              <button class="btn btn-block btn-primary" type="button" onclick = "addAttribute(this)">Check</button>                                           
+                                              <button class="btn  btn-primary" type="button" onclick = "addAttribute(this)">Check</button>                                           
                                         </td>
                                     </tr>
                                 </c:forEach>                                
@@ -181,14 +180,15 @@ function addAttribute(input){
 	
 	var studentName =  input.
 	                    parentNode.
-	                              previousElementSibling.
+	                           previousElementSibling.
 	                                       firstElementChild.
 	                                          firstElementChild.
 	                                               value;
+
     if(studentName == ""){
 		$('#empty_modal').modal('show');
     }else{
-    	var url = contextPath+"/loser/check?loseId="+loseId+"&studentId="+studentId+"&studentName="+studentName+"&format=json&jsoncallback=?"
+    	var url = contextPath+"/loser/check?loseId="+loseId+"&studentName="+studentName+"&format=json&jsoncallback=?"
     	    $.ajaxSetup({
    	    	    async:false
    	    	});
@@ -198,7 +198,6 @@ function addAttribute(input){
     		var message = dataObj[1];
     		if(isSuccess == "true"){ 
     			var newUrl = contextPath+message+"?loseId="+gLoseId;
-    			//window.location.assign(newUrl);
     			window.location.href = newUrl;
     		}else{
     			$('#incorrect_modal').modal('show');
