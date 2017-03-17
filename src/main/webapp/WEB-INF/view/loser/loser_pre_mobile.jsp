@@ -83,31 +83,29 @@ var studentId = loseRecord.studentId;
             <h1 class="page-header">Found Info List <a style = "color:bule" >(${studentId})</a></h1>
         </div>
         <div class="row">
-            <div class="col-lg-12 clo-sm-12">
+            <div class="col-lg-12 ">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <div class="dataTable_wrapper col-lg-12">
+                        <div class="dataTable_wrapper">
                             <table  class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                 <tr>
                                     <th style="display:none">loseId</th>
-                                    <th class = "col-sm-2">Card Number</th>
-                                    <th class = "col-sm-2">Info Time</th>
-                                    <th class = "col-sm-2">Status</th>
-                                    <th class = "col-sm-3">Name</th>
-                                    <th class = "col-sm-1">Check</th>
+                                    <th class = "col-lg-4">Info Time</th>
+                                    <th class = "col-lg-4" style = "display:none"></th>
+                                    <th class = "col-lg-4">Name</th>
+                                    <th class = "col-lg-4">Check</th>
                                 </tr>
                                 </thead>
                                 <tbody id = "tbody">
                                 <c:forEach var="loseRecords" items="${loseRecords}">
                                     <tr>
                                         <td style="display:none">${loseRecords.recordId}</td>
-                                        <td id = 'student_id'>${loseRecords.studentId}</td>
                                         <td>${loseRecords.findDate}</td> 
-                                        <td><span class = 'status'>${loseRecords.cardStatus}</span></td>                                       
+                                        <td style="display:none"><span class = 'status' >${loseRecords.cardStatus}</span></td>                                     
                                         <td>
-                                            <div class="form-group">
-                                               <input class="form-control" placeholder="姓名" name="studentId" autofocus>
+                                             <div class="form-group" >
+                                              <input class="form-control" placeholder="Name" name="studentId" >
                                             </div>                          
                                         </td>
                                         <td>                                           
@@ -152,30 +150,29 @@ var studentId = loseRecord.studentId;
 var gLoseId;
 
 $(document).ready(function(){
- var isSuccess 
- var cardStatus  = $(".status");
- for(var i = 0; i<cardStatus.length; i++){
-	 var span = cardStatus[i];
-	 var spanValue = cardStatus[i].innerText;
-	 var tr = span.parentElement.parentElement;
-	 if(spanValue == 'PUBLICED'){	
-	     tr.setAttribute('class','info');
-	 }else if(spanValue == "PROCCESSING"){
-		 tr.setAttribute('class', 'success');
-     }else{   
-    	 tr.setAttribute('class', 'warning');
-     }
-     }
-});
+	 var isSuccess 
+	 var cardStatus  = $(".status");
+	 for(var i = 0; i<cardStatus.length; i++){
+		 var span = cardStatus[i];
+		 var spanValue = cardStatus[i].innerText;
+		 var tr = span.parentElement.parentElement;
+		 if(spanValue == 'PUBLICED'){	
+		     tr.setAttribute('class','info');
+		 }else if(spanValue == "PROCCESSING"){
+			 tr.setAttribute('class', 'success');
+	     }else{   
+	    	 tr.setAttribute('class', 'danger');
+	     }
+	     }
+	});
 
 function addAttribute(input){	
 	var contextPath = "${pageContext.request.contextPath}";
-	var studentId = document.getElementById('student_id').innerText;
 	var loseId = input.
 	                  parentNode.
                          previousElementSibling.
                            previousElementSibling.
-                             previousElementSibling.previousElementSibling.previousElementSibling.innerText;
+                             previousElementSibling.previousElementSibling.innerText;
 	
 	gLoseId = loseId;
 	
@@ -218,6 +215,8 @@ function String2Array(str){
 	}	
 	return result;
 }
+
+
 
 </script>
 

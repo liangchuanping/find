@@ -2,20 +2,19 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="author" content="pingliangchuan@163.com">
 
-    <title>登录</title>
+    <title>Role App</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="${pageContext.request.contextPath}/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/bower_components/bootstrap/dist/css/bootstrap.min.	css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
     <link href="${pageContext.request.contextPath}/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
@@ -25,13 +24,42 @@
 
     <!-- Custom Fonts -->
     <link href="${pageContext.request.contextPath}/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    <script src="${pageContext.request.contextPath}/bower_components/jquery/dist/jquery.min.js"></script>
+    
+<script>
+var deviceUrl ;
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you util the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+$(document).ready(function(){
+
+	var isCompu = checkCompu();
+	if(isCompu){
+		deviceUrl = '${pageContext.request.contextPath}/loser/loser_pre?device=loser_pre';
+	}else{
+		deviceUrl = '${pageContext.request.contextPath}/loser/loser_pre?device=loser_pre_mobile';
+	}
+	 document.getElementById('loser_pre').setAttribute('href',deviceUrl);
+});
+
+function dataAnalysis(){
+	alert("敬请期待");
+}
+
+function checkCompu(){
+	  var userAgentInfo=navigator.userAgent; 
+	  var Agents =new Array("Android","iPhone","SymbianOS","Windows Phone","iPad","iPod"); 
+	  var flag=true; 
+	  for(var v=0;v<Agents.length;v++) { 
+	     if(userAgentInfo.indexOf(Agents[v])>0) { 
+	       flag=false; 
+	       break; 
+	     } 
+	   } 
+	   return flag; 
+} 
+
+
+</script>
 
 </head>
 
@@ -42,20 +70,20 @@
         <div class="col-md-4 col-md-offset-4">
             <div class="login-panel panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title" style = "text-align:center">*******</h3>
+                    <h3 class="panel-title" style = "text-align:center">Role App</h3>
                 </div>
-                <div class="panel-body" >
-                  <ul class="nav" style = "background-color:#337ab7 " >
+                <div class="panel-body list-group" >
+                  <ul class="nav"  >
                     <li>
-                        <a href="${pageContext.request.contextPath}/admin" style = "text-align:center ;color:#B3B3B3">Finder</a>
+                        <a href="${pageContext.request.contextPath}/publisher/publisher_pre" class="list-group-item list-group-item-info" style = "text-align:center; font-weight:bold" >Publisher</a>
                     </li>
                     <li>
-                        <a href="${pageContext.request.contextPath}/loser/loser_pre" style = "text-align:center; color :#B3B3B3; font-weight:bold" >
+                        <a id = "loser_pre"  class="list-group-item list-group-item-info" style = "text-align:center; font-weight:bold" >
                             Loser</a>
                     </li>
                     <li>
-                        <a href="${pageContext.request.contextPath}/user.do/user.view" style = "text-align:center; color :#B3B3B3; font-weight:bold" >
-                            List</a>
+                        <a  href="#" onclick = "dataAnalysis()" class="list-group-item list-group-item-info" style = "text-align:center; font-weight:bold" >
+                            Data Analysis</a>
                     </li>
                    </ul>
                 </div>
