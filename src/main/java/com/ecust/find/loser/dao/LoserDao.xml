@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.ecust.find.loser.dao.LoserDao">
+    <resultMap id="loserRecord_map" type="LoseRecord">
+    <id property = "recordId" column = "LOSE_ID" />
+    <result property = "studentId" column = "LOSER_ID" />
+    <result property = "name" column = "LOSER_NAME" /> 
+    <result property = "findId" column = "FIND_ID" />
+    <result property = "findDate" column = "FIND_DATE"/>
+    <result property = "checkDate" column = "CHECK_DATE" />
+    <result property = "closeDate" column = "CLOSE_DATE" />    
+    <result property = "cardStatus" column = "STATUS" />
+    </resultMap>
+    
+    
+    <resultMap id="findInfo_map" type="FindInfo">
+    <id property = "infoId"  column = "FIND_ID" />
+    <result property = "name" column = "FINDER_NAME" />
+    <result property = "phoneNumber" column = "FINDER_PHONE" />
+    <result property = "weChat"  column = "FINDER_WECHAT" />
+    <result property = "qq"  column = "FINDER_QQ" />
+    <result property = "email" column = "FINDER_EMAIL" />
+    <result property = "comment" column = "FINDER_COMMENT" />
+    </resultMap>
+    
+    <select id="listAll" parameterType="String" resultMap="loserRecord_map">
+       SELECT * FROM lost_card WHERE LOSER_ID = #{value} ORDER BY FIND_DATE DESC
+    </select>
+    
+    <select id="getNameByLoseId" parameterType="long" resultType = "String">
+       SELECT LOSER_NAME FROM lost_card WHERE LOSE_ID  = #{value}
+    </select>
+    
+    <update id ="updateLoseStatusToProccessing" parameterType="long">
+        UPDATE lost_card SET STATUS = 'PROCCESSING' WHERE LOSE_ID = #{value}
+    </update>
+    
+    <select id = "getFindIdByLoseId" parameterType="long" resultType = "int">
+       SELECT FIND_ID FROM lost_card WHERE LOSE_ID = #{value}
+    </select>
+    
+    <select id = "getStatusByLoseId" parameterType="long" resultType = "String">
+       SELECT STATUS FROM lost_card WHERE LOSE_ID = #{value}
+    </select>
+    
+    <update id = "updateCheckDate" parameterType="long" statementType="CALLABLE">
+       call updateCheckDate(#{value})
+    </update>
+    
+    <select id = "getFindInfoByFindId" parameterType = "int" resultMap = "findInfo_map">
+        SELECT * FROM finder_info WHERE FIND_ID = #{value}  
+    </select>
+    
+    <select id ="getSingleLoseRecord" parameterType = "long" resultMap = "loserRecord_map">
+        SELECT * FROM lost_card WHERE LOSE_ID = #{value}
+    </select>
+    
+    <update id = "closeLoseRecordByLoseId"  parameterType = "long">
+         UPDATE lost_card SET STATUS = 'CLOSED' WHERE LOSE_ID = #{value}      
+    </update>
+    
+    <update id ="updateCloseDate" parameterType="long">
+       call updateCloseDate(#{value})
+    </update>
+</mapper>
