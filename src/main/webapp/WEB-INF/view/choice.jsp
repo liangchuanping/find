@@ -34,9 +34,9 @@ $(document).ready(function(){
 
 	var isCompu = checkCompu();
 	if(isCompu){
-		deviceUrl = '${pageContext.request.contextPath}/loser/loser_pre?device=loser_pre';
+		deviceUrl = '${pageContext.request.contextPath}/loser/loser_pre/loser_pre';
 	}else{
-		deviceUrl = '${pageContext.request.contextPath}/loser/loser_pre?device=loser_pre_mobile';
+		deviceUrl = '${pageContext.request.contextPath}/loser/loser_pre/loser_pre_mobile';
 	}
 	 document.getElementById('loser_pre').setAttribute('href',deviceUrl);
 });
