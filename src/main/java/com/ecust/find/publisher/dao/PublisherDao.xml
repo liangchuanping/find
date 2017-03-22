@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.ecust.find.publisher.dao.PublisherDao">
+   
+    <insert id="insertPublisherInfoAndReturnId" parameterType="PublisherInfo">
+       <selectKey resultType="int" keyProperty="id" order="AFTER">
+          select @@IDENTITY as id
+       </selectKey>
+       INSERT INTO finder_info(FINDER_NAME, FINDER_PHONE, FINDER_WECHAT, FINDER_QQ, FINDER_EMAIL, FINDER_COMMENT)VALUES    
+                       (#{name}, #{phoneNumber}, #{weChat}, #{qq}, #{email}, #{comment})  
+    </insert>
+    
+    <insert id = "persistLoseCardInfo" parameterType = "LoseCardInfo">
+      INSERT INTO lost_card(LOSER_ID, LOSER_NAME, FIND_ID) VALUES
+                           (#{studentId} , #{name}, #{findId}) 
+    </insert>
+</mapper>
